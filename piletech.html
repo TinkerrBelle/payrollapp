@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <title>PILETECH Limited Payroll</title>
+
+        <!-- STYLES -->
+        <style>
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            td, th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+        </style>
+
+
+        <!-- SCRIPT -->
+        <script>
+            function payroll() {
+                // to calculate the amount to be paid
+                var sai = parseInt(document.getElementById('salaryAdvanceInput').value);
+                var adi = parseInt(document.getElementById('absentDaysInput').value);
+                var s = parseInt(document.getElementById('salary').innerHTML);
+
+                document.getElementById('result').value = sai * adi;
+
+
+                // to calculate the absent deductions
+                var add = document.getElementById('absentDeductions');
+                var adds = (s/25)*adi;
+                add.innerHTML = adds;
+
+
+                // to calculate the total deduction; salary advance + absent days deductions
+                var d = document.getElementById('deductions');
+                ds = sai + adds;
+                d.innerHTML = ds;
+
+
+                // to calculate the salary paid; Salary amount - total deductions
+                var sp = document.getElementById('salaryPaid');
+                sps = s - ds;
+                sp.innerHTML = sps;
+
+                // To add the input values to the table
+                var sa = document.getElementById('salaryAdvance');
+                sa.innerHTML = sai;
+
+                var ad = document.getElementById('absentDays');
+                ad.innerHTML = adi;
+
+
+                // Clear the input field
+                document.getElementById('salaryAdvanceInput').value = '';
+                document.getElementById('absentDaysInput').value = '';
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+              // SAVES THE INTIAL INPUT
+  let data = []; // This array will store the data
+  var named = document.getElementById('nameInput');
+
+
+function editRow(rowNumber) {
+  // Get the input values
+  var name = document.getElementById('nameInput').value;
+  var age = document.getElementById('ageInput').value;
+
+    // Create an object to represent the data
+    const newData = {
+    name,
+    age,
+    // Add more fields here as needed
+  };
+
+  // Push the new data object to the array
+  data.push(newData);
+
+
+  named.disabled = true;
+  // Optionally, clear the input fields
+}
+
+
+
+document.getElementById("editButton").addEventListener("click", function() {
+  // Fetch the data you want to edit (e.g., from the data array)
+  const dataToEdit = data[0]; // Edit the logic to select the desired data
+
+  if (dataToEdit) {
+    // Populate the form fields with the existing data
+
+    document.getElementById("nameInput").value = dataToEdit.name;
+    document.getElementById("ageInput").value = dataToEdit.age;
+    // Update more fields as needed
+    named.disabled = false;
+
+  }
+});
+
+
+
+document.getElementById("updateButton").addEventListener("click", function() {
+  // Get the edited values from the form
+  const editedName = document.getElementById("nameInput").value;
+  const editedAge = document.getElementById("ageInput").value;
+
+  // Update the data in the array (you might need to identify which record to update)
+  data[0].name = editedName;
+  data[0].age = editedAge;
+
+  named.disabled = true;
+});
+
+
+
+        </script>
+    </head>
+
+    <body>
+
+        <!-- NAVIGATION BAR -->
+        <nav class="navbar navbar-default">1
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">PILETECH LIMITED</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Page 1</a></li>
+                    <li><a href="#">Page 2</a></li>
+                    <li><a href="#">Page 3</a></li>
+                </ul>
+            </div>
+        </nav>
+
+
+        <!-- TABLE -->
+        <div class="table-container">
+            <table class="content2" id="myTable" style="width:100%">
+                <thead>
+                    <tr>
+                        <th style="width: 5%;">S/N</th>
+                        <th style="width: 20%;">NAME/ROLE</th>
+                        <th style="width: 10%;">SALARY</th>
+                        <th style="width: 10%;">DEDUCTIONS</th>
+                        <th style="width: 10%;">AMOUNT PAID</th>
+                        <th style="width: 10%;">ACCOUNT DETAILS</th>
+                        <th style="width: 10%;">SALARY ADVANCE DEDUCTIONS</th>
+                        <th style="width: 10%;">ABSENT DEDUCTIONS</th>
+                        <th style="width: 5%;">NO. OF DAYS ABSENT</th>
+                        <th id="delete" style="width: 5%; "></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td id="name">Aese Moses<br/>
+                            <span style="font-style: italic;">Storekeeper</span>
+                        </td>
+                        <td id="salary">45000</td>
+                        <td id="deductions">-</td>
+                        <td id="salaryPaid">-</td>
+                        <td id="accountName">0763296122<br/>
+                            <span id="accountNo" style="font-style: italic;">Access</span>
+                        </th>
+                        <td id="salaryAdvance"></th>
+                        <td id="absentDeductions">-</th>
+                        <td id="absentDays"></th>
+                            <td id="edit">
+                                <button onclick="editRow()">EDIT</button>
+                            </td>
+                        </tr>
+
+                    <tr>
+                        <td>2</td>
+                        <td id="name">Edafe Isaac<br/>
+                            <span style="font-style: italic;">Mechanic</span>
+                        </td>
+                        <td id="salary">60000</td>
+                        <td ><input type="text" value="John" id="nameInput"></td>
+                        <td ><input type="number" value="30" id="ageInput"></td>
+                        <td id="accountName">2392478032<br/>
+                            <span id="accountNo" style="font-style: italic;">Zenith</span>
+                        </th>
+                        <td id="salaryAdvance"></th>
+                        <td id="absentDeductions">-</th>
+                        <td id="absentDays"></th>
+                        <td><button onclick="editRow(0)">SAVE</button></td>
+                        <td><button type="button" id="editButton">Edit</button></td>
+                        <td><button type="button" id="updateButton">Update</button></td>
+                    </tr>
+
+                </tbody>
+            
+            </table>
+        </div>
+
+
+        <!-- FORM -->
+        <div id="myForm" class="content4"> 
+            <form>
+                <input type="text" id="rowIndex" placeholder="rowIndex" hidden/>
+                <br/><br/>
+    
+                <label>SALARY ADVANCE DEDUCTIONS:</label><br/>
+                <input type="text" id="salaryAdvanceInput" required/>
+                <br/><br/>
+        
+                <label>NO. OF DAYS ABSENT:</label><br/>
+                <input type="text" id="absentDaysInput"/>
+                <br/><br/>
+        
+                <button  onclick="payroll();">AMOUNT</button>
+                <input type="text" id="result"hidden><br/><br/>
+    
+            </form>   
+    
+        </div>
+
+
+
+
+    </body>
+</html>

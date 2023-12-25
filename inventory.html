@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <title>Current Inventory</title>
+
+        <style>
+            table, th, td {
+                margin: 0 auto;
+                height: 40px;
+
+                
+            }
+
+            th:nth-child(5) {
+                text-align: center;
+            }
+
+            td:nth-child(5) {
+                text-align: center;
+            }
+
+            td:nth-child(1) {
+                font-weight: bold;
+            }
+
+
+        </style>
+        <script></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label>Product Name:</label><br/>
+                    <input type="text"/>
+                </div>
+                <div class="col-sm-3">
+                    <label>Product Brand:</label><br/>
+                    <input type="text"/>
+                </div>
+                <div class="col-sm-3">
+                    <label>Quantity:</label><br/>
+                    <input type="text"/>
+                </div>
+                <div class="col-sm-3">
+                    <label>Product Price:</label><br/>
+                    <input type="text"/>
+                </div><br/>
+            </div>
+            <br/>
+            <button  onclick="payroll();">Add</button>
+            <button  onclick="payroll();">Reset</button>
+
+            <div class="table-container">
+                <table id="myTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 100px;">#</th>
+                            <th style="width: 450px;">Name</th>
+                            <th style="width: 150px;">Brand</th>
+                            <th style="width: 150px;">Quantity</th>
+                            <th style="width: 250px;">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Acer Nitro 7</td>
+                            <td>Acer</td>
+                            <td>10</td>
+                            <td>Rs 30000</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

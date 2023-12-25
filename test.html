@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>PILETECH Limited Payroll</title>
+
+    <style>
+      input {
+        width: 100%;
+      }
+    </style>
+
+  </head>
+  <body>
+    <table id="myTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Salary</th>
+          <th>Deductions</th>
+          <th>Amount Paid</th>
+          <th>Account Details</th>
+          <th>Salary Advance</th>
+          <th>Absent Deductions</th>
+          <th>No. of Days Absent</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="text"  id="nameInput"></td>
+          <td><input type="number"  id="salaryInput"></td>
+          <td><input type="number" id="deductionsInput" readonly></td>
+          <td><input type="number" id="amountPaidInput" readonly></td>
+          <td><input type="number"  id="accountDetailsInput"></td>
+          <td><input type="number" id="salaryAdvanceInput"></td>
+          <td><input type="number"  id="absentDeductionsInput" readonly ></td>
+          <td><input type="number"  id="absentDaysInput"></td>
+          <td><button onclick="editRow(this)" id="saveButton">SAVE</button></td>
+          <td><button type="button" id="editButton" hidden>EDIT</button></td>
+          <td><button type="button" id="updateButton" hidden>UPDATE</button></td>
+        </tr>
+        <!-- Add more rows as needed -->
+        <tr>
+          <td><input type="text"  id="nameInput"></td>
+          <td><input type="number"  id="salaryInput"></td>
+          <td><input type="number" id="deductionsInput" disabled></td>
+          <td><input type="number" id="amountPaidInput" disabled></td>
+          <td><input type="number"  id="accountDetailsInput"></td>
+          <td><input type="number" id="salaryAdvanceInput"></td>
+          <td><input type="number"  id="absentDeductionsInput" disabled ></td>
+          <td><input type="number"  id="absentDaysInput"></td>
+          <td><button onclick="editRow(this)" id="saveButton">SAVE</button></td>
+          <td><button type="button" id="editButton" hidden>EDIT</button></td>
+          <td><button type="button" id="updateButton" hidden>UPDATE</button></td>
+        </tr>
+
+      </tbody>
+    </table>
+    
+    
+  </body>
+
+  <script>
+    // SAVES THE INTIAL INPUT
+    let data = []; // This array will store the data
+    var save = document.getElementById('saveButton');
+    var edit = document.getElementById('editButton');
+    var update = document.getElementById('updateButton');
+
+  
+  function editRow(rowNumber) {
+    // Get the input values
+    var name = document.getElementById('nameInput').value;
+    var salary = parseInt(document.getElementById('salaryInput').value);
+    var accountDetails = document.getElementById('accountDetailsInput').value;
+    var salaryAdvance = parseInt(document.getElementById('salaryAdvanceInput').value);
+    var absentDays = parseInt(document.getElementById('absentDaysInput').value);
+
+    // to calculate the absent deductions
+    const absentDeductions = (salary / 25) * absentDays;
+    document.getElementById('absentDeductionsInput').value = absentDeductions;
+
+    // to calculate the total deduction; salary advance + absent days deductions
+    const deductions = salaryAdvance + absentDeductions;
+    document.getElementById('deductionsInput').value = deductions;
+
+    // to calculate the salary paid; Salary amount - total deductions
+    const amountPaid = salary - deductions;
+    document.getElementById('amountPaidInput').value = amountPaid;
+    
+  
+      // Create an object to represent the data
+      const newData = {
+      name,
+      salary,
+      deductions,
+      amountPaid,
+      accountDetails,
+      salaryAdvance,
+      absentDeductions,
+      absentDays,
+      // Add more fields here as needed
+    };
+  
+
+    // Push the new data object to the array
+    data.push(newData);
+  
+  
+    // Disable the inputs
+    var table = document.getElementById("myTable");
+    var inputs = table.getElementsByTagName("input");
+
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].disabled = true;
+    }
+
+    save.hidden = true;
+    edit.hidden = false;
+  }
+  
+  
+  document.getElementById("editButton").addEventListener("click", function() {
+    // Fetch the data you want to edit (e.g., from the data array)
+    const dataToEdit = data[0]; // Edit the logic to select the desired data
+  
+    if (dataToEdit) {
+      // Populate the form fields with the existing data
+  
+      document.getElementById("nameInput").value = dataToEdit.name;
+      document.getElementById("salaryInput").value = dataToEdit.salary;
+      document.getElementById("deductionsInput").value = dataToEdit.deductions;
+      document.getElementById("amountPaidInput").value = dataToEdit.amountPaid;
+      document.getElementById("accountDetailsInput").value = dataToEdit.accountDetails;
+      document.getElementById("salaryAdvanceInput").value = dataToEdit.salaryAdvance;
+      document.getElementById("absentDeductionsInput").value = dataToEdit.absentDeductions;
+      document.getElementById("absentDaysInput").value = dataToEdit.absentDays;
+
+    }
+
+
+    // Update more fields as needed
+    // Disable the inputs
+    var table = document.getElementById("myTable");
+    var inputs = table.getElementsByTagName("input");
+
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].disabled = false;
+    }
+  
+
+
+    edit.hidden = true;
+    update.hidden = false;
+
+  });  
+
+  document.getElementById("updateButton").addEventListener("click", function() {
+    // Get the edited values from the form
+    const editedName = document.getElementById("nameInput").value;
+    const editedSalary = parseInt(document.getElementById("salaryInput").value);
+    const editedAccountDetails = document.getElementById("accountDetailsInput").value;
+    const editedSalaryAdvance = parseInt(document.getElementById("salaryAdvanceInput").value);
+    const editedAbsentDays = parseInt(document.getElementById("absentDaysInput").value);
+
+    // to calculate the absent deductions
+    const editedAbsentDeductions = (editedSalary / 25) * editedAbsentDays;
+    document.getElementById('absentDeductionsInput').value = editedAbsentDeductions;
+
+    // to calculate the total deduction; salary advance + absent days deductions
+    const editedDeductions = editedSalaryAdvance + editedAbsentDeductions;
+    document.getElementById('deductionsInput').value = editedDeductions;
+    
+    // to calculate the salary paid; Salary amount - total deductions
+    const editedAmountPaid = editedSalary - editedDeductions;
+    document.getElementById('amountPaidInput').value = editedAmountPaid;
+
+    
+    // Update the data in the array (you might need to identify which record to update)
+    data[0].name = editedName;
+    data[0].salary = editedSalary;
+    data[0].deductions = editedDeductions;
+    data[0].amountPaid = editedAmountPaid;
+    data[0].accountDetails = editedAccountDetails;
+    data[0].salaryAdvance = editedSalaryAdvance;
+    data[0].absentDeductions = editedAbsentDeductions;
+    data[0].absentDays = editedAbsentDays;
+
+  
+    // Disable the inputs
+    var table = document.getElementById("myTable");
+    var inputs = table.getElementsByTagName("input");
+
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].disabled = true;
+    }
+
+    edit.hidden = false;
+    update.hidden = true;
+  });
+  
+  
+  
+  </script>
+  
+
+</html>

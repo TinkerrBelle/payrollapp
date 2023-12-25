@@ -1,0 +1,35 @@
+<form id="myForm">
+  <table>
+    <tr>
+      <td><input type="number" name="value1" id="value1" /></td>
+      <td><input type="number" name="value2" id="value2" /></td>
+      <td><button type="button" id="calculate">Calculate</button></td>
+      <td><input type="text" name="result" id="result" readonly /></td>
+      <td><button type="button" id="edit" style="display: none;">Edit</button></td>
+    </tr>
+  </table>
+  <input type="submit" value="Save" />
+</form>
+
+<script>
+  document.getElementById("calculate").addEventListener("click", function () {
+  const value1 = parseFloat(document.getElementById("value1").value);
+  const value2 = parseFloat(document.getElementById("value2").value);
+
+  const result = value1 + value2;
+  document.getElementById("result").value = result;
+
+  // Show the "Edit" button
+  document.getElementById("edit").style.display = "inline";
+});
+
+document.getElementById("edit").addEventListener("click", function () {
+  // Enable editing of input fields
+  document.getElementById("value1").removeAttribute("readonly");
+  document.getElementById("value2").removeAttribute("readonly");
+
+  // Hide the "Edit" button
+  document.getElementById("edit").style.display = "none";
+});
+
+</script>
